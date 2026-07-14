@@ -8,7 +8,7 @@ const REFERRAL_BONUS = 50;
 
 const TG_BOT_TOKEN_DEFAULT = '';
 const TG_BOT_USERNAME_DEFAULT = '';
-const TG_BOT_PROXY_DEFAULT = '';
+const TG_BOT_PROXY_DEFAULT = 'https://shrill-bread-89de.nfajih.workers.dev';
 
 let TG_BOT_TOKEN = localStorage.getItem('vf_bot_token') || TG_BOT_TOKEN_DEFAULT;
 let TG_BOT_USERNAME = localStorage.getItem('vf_bot_username') || TG_BOT_USERNAME_DEFAULT;
