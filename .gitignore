@@ -1,0 +1,5 @@
+# Sensitive config files (local only)
+admin.txt
+WORKER_CODE.txt
+НАСТРОЙКА_БОТА.txt
+tok.txt
