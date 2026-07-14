@@ -12,8 +12,8 @@ const REFERRAL_BONUS = 50;
 const CREATOR_TG_ID = 1243980540;
 const CREATOR_USERNAME = 'vansFenix';
 
-let TG_BOT_TOKEN = getSecurely('vf_bot_token');
-let TG_BOT_USERNAME = getSecurely('vf_bot_username');
+let TG_BOT_TOKEN = localStorage.getItem('vf_bot_token') || '';
+let TG_BOT_USERNAME = localStorage.getItem('vf_bot_username') || '';
 let TG_BOT_PROXY = (localStorage.getItem('vf_bot_proxy') || '').replace(/^[a-zA-Z]+:\/\//, '');
 if (TG_BOT_PROXY) TG_BOT_PROXY = 'https://' + TG_BOT_PROXY;
 
@@ -123,22 +123,7 @@ function loadAvatarImage(username, photoUrl) {
     img.src = photoUrl;
 }
 
-// ====== SECURE STORAGE (обфускация в localStorage) ======
-const STORAGE_KEY = btoa('vf');
-function obfuscate(str) {
-    try { return btoa(encodeURIComponent(str)); } catch { return str; }
-}
-function deobfuscate(str) {
-    try { return decodeURIComponent(atob(str)); } catch { return str; }
-}
-function getSecurely(key) {
-    const raw = localStorage.getItem(key);
-    if (!raw) return '';
-    return deobfuscate(raw);
-}
-function setSecurely(key, val) {
-    localStorage.setItem(key, val ? obfuscate(val) : '');
-}
+// ====== LOCAL STORAGE HELPERS ======
 
 // ====== API KEY для Worker ======
 function getApiKey() {
@@ -634,8 +619,8 @@ function saveBotSettings() {
         proxy = proxy.replace(/^[a-zA-Z]+:\/\//, '');
         proxy = 'https://' + proxy;
     }
-    setSecurely('vf_bot_token', token);
-    setSecurely('vf_bot_username', username);
+    localStorage.setItem('vf_bot_token', token);
+    localStorage.setItem('vf_bot_username', username);
     localStorage.setItem('vf_bot_proxy', proxy);
     localStorage.setItem('vf_api_key', apiKey);
     TG_BOT_TOKEN = token;
