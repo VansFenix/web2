@@ -134,8 +134,7 @@ function deobfuscate(str) {
 function getSecurely(key) {
     const raw = localStorage.getItem(key);
     if (!raw) return '';
-    const val = deobfuscate(raw);
-    return val && val.startsWith('vf_') ? val : raw; // fallback для старых данных
+    return deobfuscate(raw);
 }
 function setSecurely(key, val) {
     localStorage.setItem(key, val ? obfuscate(val) : '');
