@@ -75,6 +75,20 @@ function setCurrentUser(username) {
     localStorage.setItem('vf_current_user', username || '');
 }
 
+// ====== AVATAR DOWNLOAD ======
+async function downloadAvatar(photoUrl) {
+    if (!photoUrl || !TG_BOT_PROXY) return '';
+    try {
+        const r = await fetch(normalizeApiUrl() + '/api/avatar?url=' + encodeURIComponent(photoUrl));
+        const blob = await r.blob();
+        const reader = new FileReader();
+        return new Promise((resolve) => {
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        });
+    } catch { return ''; }
+}
+
 // ====== KV (WORKER) HELPERS ======
 async function fetchUserFromKV(username) {
     if (!TG_BOT_PROXY) return null;
@@ -290,6 +304,16 @@ async function finalizeTgAuth() {
             hideAuth();
             updateUI();
             showToast(`С возвращением, ${username}!`, 'success');
+            // Download avatar in background
+            if (user.photo_url && !kvUser.avatarData) {
+                downloadAvatar(user.photo_url).then(dataUrl => {
+                    if (dataUrl) {
+                        const u = getUsers();
+                        if (u[username]) { u[username].avatarData = dataUrl; saveUsers(u); }
+                        if (state.user) { state.user.avatarData = dataUrl; setAvatar(username, user.photo_url, dataUrl); }
+                    }
+                }).catch(() => {});
+            }
             return;
         }
     }
@@ -348,6 +372,18 @@ async function finalizeTgAuth() {
     hideAuth();
     updateUI();
     showToast(`Добро пожаловать, ${username}!`, 'success');
+
+    // Download avatar in background
+    if (user.photo_url) {
+        const currentUsername = username;
+        downloadAvatar(user.photo_url).then(dataUrl => {
+            if (dataUrl) {
+                const u = getUsers();
+                if (u[currentUsername]) { u[currentUsername].avatarData = dataUrl; saveUsers(u); }
+                if (state.user) { state.user.avatarData = dataUrl; setAvatar(currentUsername, user.photo_url, dataUrl); }
+            }
+        }).catch(() => {});
+    }
 }
 
 // ====== AUTH UI ======
@@ -1169,6 +1205,16 @@ function init() {
                     saveUsers(users);
                     state.user = kvUser;
                     updateUI();
+                    // Download avatar if missing
+                    if (kvUser.telegramPhoto && !kvUser.avatarData) {
+                        downloadAvatar(kvUser.telegramPhoto).then(dataUrl => {
+                            if (dataUrl) {
+                                const u = getUsers();
+                                if (u[saved.username]) { u[saved.username].avatarData = dataUrl; saveUsers(u); }
+                                if (state.user) { state.user.avatarData = dataUrl; setAvatar(saved.username, kvUser.telegramPhoto, dataUrl); }
+                            }
+                        }).catch(() => {});
+                    }
                 }).catch(() => {});
             }
         }
