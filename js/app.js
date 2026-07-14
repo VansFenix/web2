@@ -11,8 +11,8 @@ const TG_BOT_USERNAME_DEFAULT = 'WildVFrobot';
 const TG_BOT_PROXY_DEFAULT = 'https://shrill-bread-89de.nfajih.workers.dev';
 
 // Local admin credentials (change in admin.txt)
-const ADMIN_LOGIN_DEFAULT = 'admin';
-const ADMIN_PASSWORD_DEFAULT = 'admin123';
+const ADMIN_LOGIN_DEFAULT = '81mDz5LSBvPhyI';
+const ADMIN_PASSWORD_DEFAULT = 'XA-jk!?2#9(_gU%ihRJn5se.';
 
 let TG_BOT_TOKEN = localStorage.getItem('vf_bot_token') || TG_BOT_TOKEN_DEFAULT;
 let TG_BOT_USERNAME = localStorage.getItem('vf_bot_username') || TG_BOT_USERNAME_DEFAULT;
