@@ -6,8 +6,8 @@ const DAILY_BONUS_AMOUNT = 50;
 const TG_BOT_API = 'https://api.telegram.org/bot';
 const REFERRAL_BONUS = 50;
 
-const TG_BOT_TOKEN_DEFAULT = '';
-const TG_BOT_USERNAME_DEFAULT = '';
+const TG_BOT_TOKEN_DEFAULT = '8834371476:AAEOAH98X0VESvgBpX9_oPCVzUXRRK_Ee6A';
+const TG_BOT_USERNAME_DEFAULT = 'WildVFrobot';
 const TG_BOT_PROXY_DEFAULT = 'https://shrill-bread-89de.nfajih.workers.dev';
 
 let TG_BOT_TOKEN = localStorage.getItem('vf_bot_token') || TG_BOT_TOKEN_DEFAULT;
