@@ -649,7 +649,10 @@ function renderAdminUsers() {
         }).join('');
     }
 
-    // Try fetching from Worker first, fall back to localStorage
+    // Always render from localStorage first
+    render(getUsers());
+
+    // Optionally try Worker for cloud data (silent)
     if (apiUrl && state.adminLogin) {
         fetch(apiUrl + '/api/users/list', {
             method: 'POST',
@@ -659,11 +662,8 @@ function renderAdminUsers() {
             .then(r => r.json())
             .then(data => {
                 if (data.ok && data.users) render(data.users);
-                else render(getUsers());
             })
-            .catch(() => render(getUsers()));
-    } else {
-        render(getUsers());
+            .catch(() => {});
     }
 }
 
