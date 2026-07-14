@@ -47,20 +47,20 @@
 
             <div id="tg-login-container" style="display: none; justify-content: center; margin-bottom: 16px;"></div>
 
-            <div style="text-align:center;margin-bottom:12px;">
-                <span id="tg-widget-status" style="font-size:12px;color:var(--text-muted);display:none;">⏳ Загрузка Telegram...</span>
-                <button id="show-manual-btn" class="btn-hero secondary" style="padding:8px 16px;font-size:12px;display:none;" onclick="showManualLogin()">📝 Войти без Telegram (только ник)</button>
-            </div>
-
-            <div id="manual-login-area" style="display:none;margin-top:4px;">
-                <div class="form-group">
-                    <label>👤 Никнейм (любой)</label>
-                    <input type="text" id="manual-username" placeholder="Ваш ник" autocomplete="off">
+            <div id="manual-login-area" style="margin-top:8px;">
+                <div style="text-align:center;margin-bottom:8px;">
+                    <button class="btn-hero secondary" style="padding:8px 16px;font-size:12px;" onclick="showManualLogin()">📝 Войти без Telegram (только ник)</button>
                 </div>
-                <p style="font-size:11px;color:var(--text-muted);margin:-8px 0 12px;text-align:center;">
-                    ⚠️ Для копирования подписок всё равно потребуется Telegram
-                </p>
-                <button class="btn-primary" onclick="manualLogin()">Войти</button>
+                <div id="manual-login-fields" style="display:none;">
+                    <div class="form-group">
+                        <label>👤 Никнейм (любой)</label>
+                        <input type="text" id="manual-username" placeholder="Ваш ник" autocomplete="off">
+                    </div>
+                    <p style="font-size:11px;color:var(--text-muted);margin:-8px 0 12px;text-align:center;">
+                        ⚠️ Для копирования подписок потребуется Telegram
+                    </p>
+                    <button class="btn-primary" onclick="manualLogin()">Войти</button>
+                </div>
             </div>
 
             <div id="ref-input-area" class="hidden" style="margin-top: 8px;">

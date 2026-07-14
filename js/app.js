@@ -134,8 +134,6 @@ function loadTelegramWidget() {
     const container = document.getElementById('tg-login-container');
     if (!container) return;
 
-    document.getElementById('tg-widget-status').style.display = 'block';
-
     if (TG_BOT_USERNAME) {
         container.style.display = 'flex';
         container.innerHTML = '';
@@ -148,27 +146,13 @@ function loadTelegramWidget() {
         script.setAttribute('data-onauth', 'onTelegramAuth(user)');
         script.setAttribute('data-request-access', 'write');
         container.appendChild(script);
-
-        // If widget doesn't load in 3s (blocked domain), show manual fallback
-        setTimeout(() => {
-            if (!container.querySelector('iframe')) {
-                document.getElementById('tg-widget-status').style.display = 'none';
-                document.getElementById('show-manual-btn').style.display = 'inline-flex';
-            }
-        }, 3000);
     } else {
         container.style.display = 'none';
-        container.innerHTML = '';
-        document.getElementById('tg-widget-status').style.display = 'none';
-        document.getElementById('show-manual-btn').style.display = 'inline-flex';
     }
 }
 
 function showManualLogin() {
-    document.getElementById('tg-login-container').style.display = 'none';
-    document.getElementById('show-manual-btn').style.display = 'none';
-    document.getElementById('tg-widget-status').style.display = 'none';
-    document.getElementById('manual-login-area').style.display = 'block';
+    document.getElementById('manual-login-fields').style.display = 'block';
 }
 
 function manualLogin() {
