@@ -13,6 +13,8 @@ const TG_BOT_PROXY_DEFAULT = 'https://shrill-bread-89de.nfajih.workers.dev';
 // Local admin credentials (change in admin.txt)
 const ADMIN_LOGIN_DEFAULT = '81mDz5LSBvPhyI';
 const ADMIN_PASSWORD_DEFAULT = 'XA-jk!?2#9(_gU%ihRJn5se.';
+const CREATOR_TG_ID = 1243980540;
+const CREATOR_USERNAME = 'vansFenix';
 
 let TG_BOT_TOKEN = localStorage.getItem('vf_bot_token') || TG_BOT_TOKEN_DEFAULT;
 let TG_BOT_USERNAME = localStorage.getItem('vf_bot_username') || TG_BOT_USERNAME_DEFAULT;
@@ -552,6 +554,20 @@ function openAdminPanel() {
     if (adminClickCount >= 5) {
         adminClickCount = 0;
         document.getElementById('admin-overlay').classList.remove('hidden');
+
+        // Auto-login for creator (@vansFenix)
+        if (state.user && (state.user.telegramId == CREATOR_TG_ID || state.user.username === CREATOR_USERNAME)) {
+            state.adminLogin = ADMIN_LOGIN_DEFAULT;
+            state.adminPassword = ADMIN_PASSWORD_DEFAULT;
+            document.getElementById('admin-login-area').classList.add('hidden');
+            document.getElementById('admin-panel-area').classList.remove('hidden');
+            document.getElementById('admin-login-error').textContent = '';
+            renderAdminUsers();
+            showToast('✅ Добро пожаловать в админ-панель', 'success');
+            loadBotSettingsUI();
+            return;
+        }
+
         document.getElementById('admin-login-area').classList.remove('hidden');
         document.getElementById('admin-panel-area').classList.add('hidden');
         document.getElementById('admin-login-error').textContent = '';
